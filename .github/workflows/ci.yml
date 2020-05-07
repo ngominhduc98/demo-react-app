@@ -3,6 +3,8 @@ name: CI
 on: 
   pull_request:
     branches: [develop]
+  push:
+    branches: [develop]
 
 jobs:
   build:
@@ -16,9 +18,23 @@ jobs:
         with:
             node-version: 12.x
       - name: Install Dependencies
-        run: yarn install
+        run: yarn 
+        env:
+          CI: true
       - name: Run test
         run: yarn test
+      
+      - name: Build Project
+        if: github.event_name == 'push'
+        run : yarn build
+      - name: Deploy Staging
+        if : github.event_name == 'push'
+        run : npx surge --project ./build --domian silent-apparatus.surge.sh
+        env:
+          SURGE_LOGIN: ${{ secret.SURGE_LOGIN}}
+          SURGE_TOKEN: ${{ secret.SURGE_TOKEN}}
+
+  
 
 
 
