@@ -22,8 +22,7 @@ jobs:
         
       - name: Run test
         run: yarn test --coverage
-        env:
-          CI: true
+        
       - name: Upload Test Coverage
         uses: actions/upload-artifact@v1
         with:
