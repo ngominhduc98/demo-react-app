@@ -22,8 +22,7 @@ jobs:
         
       - name: Run test
         run: yarn test --ci
-        
-
+      
       - name: Build Project
         if: github.event_name == 'push'
         run : yarn build
