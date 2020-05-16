@@ -27,13 +27,14 @@ jobs:
         if: github.event_name == 'push'
         run : yarn build
       - name: Upload Build Folder
-        if: github.event_name == 'push' && github.ref == 'refs/head/master'
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v1
         with:
           name: build
           path: build
+          
       - name: Create a release
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref == 'refs/head/master'
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
