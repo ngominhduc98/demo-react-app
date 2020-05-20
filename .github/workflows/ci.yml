@@ -1,19 +1,26 @@
 name: CI
 
+#trigger to run workflow
 on: 
   pull_request:
     branches: [develop, master]
   push:
     branches: [develop, master]
 
+#define jobs (trong jobs sẽ run nhiều jobs khác nhau)
 jobs:
+   # job build
   build:
-
+    # run-on (use virtual environment cua github) mac-osx, windows, ubuntu-,...
     runs-on: ubuntu-latest
+    # trong job se có nhiều steps:
     steps:
+      # name (optional): ten cua step
       - name: Checkout source code
+        # actions repo support github to checkout source code
         uses: actions/checkout@v2
       - name: Setup Node version
+        # mac dinh se xu dung node version moi nhat action nay de minh define version muon su dung
         uses: actions/setup-node@v1
         with:
             node-version: 12.x
